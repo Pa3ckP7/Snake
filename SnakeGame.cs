@@ -162,7 +162,7 @@ namespace Snake
                         curent_direction = Moving_directions.Down;
                         KeyPressed = true;
                     }
-                    else if (keyInfo.Key.Equals(ConsoleKey.LeftArrow) && curent_direction != Moving_directions.Left && KeyPressed == false)
+                    else if (keyInfo.Key.Equals(ConsoleKey.LeftArrow) && curent_direction != Moving_directions.Right && KeyPressed == false)
                     {
                         curent_direction = Moving_directions.Left;
                         KeyPressed = true;

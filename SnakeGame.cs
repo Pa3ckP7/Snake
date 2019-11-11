@@ -23,7 +23,7 @@ namespace Snake
         static int Score = 0;
         static int ScreenWidth = 236;
         static int ScreenHeight = 62;
-        static Moving_directions curent_direction = Moving_directions.Right;
+        static Moving_directions curent_direction = Moving_directions.None;
         static Pixel SnakeHead = new Pixel((ScreenWidth) / 2, (ScreenHeight) / 2, ConsoleColor.DarkYellow);
         static Pixel head_clear = new Pixel(SnakeHead);
         static Pixel body_clear = new Pixel();
@@ -44,15 +44,19 @@ namespace Snake
             Console.WindowHeight = ScreenHeight;
             DrawWalls();
             SnakeHead = new Pixel((ScreenWidth) / 2, (ScreenHeight) / 2, ConsoleColor.DarkYellow);
+            do
+            {
+                Berry = new Pixel(rng.Next(1, ScreenWidth - 2), rng.Next(1, ScreenHeight - 2), ConsoleColor.Red);
+            } while (Berry.x%2!=0.0);
             Game();
         }
 
         private static void DrawWalls()
         {
             //izris zgornjega in spodnjega zidu zidu
-            for (int x = 0; x < ScreenWidth; x++)
+            for (int x = 0; x < ScreenWidth-1; x++)
             {
-                Pixel wall = new Pixel(x, 0);
+                Pixel wall = new Pixel(x, 1);
                 Pixel.drawPixel(wall);
 
                 wall = new Pixel(x, ScreenHeight - 2);
@@ -60,12 +64,12 @@ namespace Snake
 
             }
             //izris levega in desnega zidu
-            for (int y = 0; y < Console.WindowHeight-1; y++)
+            for (int y = 1; y < Console.WindowHeight-1; y++)
             {
                 Pixel wall = new Pixel(0, y);
                 Pixel.drawPixel(wall);
 
-                wall = new Pixel(ScreenWidth - 1, y);
+                wall = new Pixel(ScreenWidth - 2, y);
                 Pixel.drawPixel(wall);
 
             }
@@ -73,8 +77,9 @@ namespace Snake
         static void Game()
         {
             while (!GameOver)
-            {                                                
-                Console.Title = Convert.ToString(Score);
+            {
+                Console.SetCursorPosition(0, 0);
+                Console.Write($"Score: { Convert.ToString(Score)}");
                 Pseudoclear();
                 Pixel.drawPixel(SnakeHead);
                 Pixel.drawPixel(Berry);
@@ -82,13 +87,16 @@ namespace Snake
                 {
                     Pixel.drawPixel(segment);
                 }
-                GetMovementDirection();                
-                Pixel bodySegment = new Pixel(SnakeHead.x, SnakeHead.y, SegmentColor);
-                SnakeBody.Add(bodySegment);
-                if (SnakeBody.Count > Score + StartingSize)
+                GetMovementDirection();
+                if (curent_direction != Moving_directions.None)
                 {
-                    body_clear = new Pixel(SnakeBody[0]);
-                    SnakeBody.RemoveAt(0);
+                    Pixel bodySegment = new Pixel(SnakeHead.x, SnakeHead.y, SegmentColor);
+                    SnakeBody.Add(bodySegment);
+                    if (SnakeBody.Count > Score + StartingSize)
+                    {
+                        body_clear = new Pixel(SnakeBody[0]);
+                        SnakeBody.RemoveAt(0);
+                    }
                 }
 
                 switch (curent_direction)
@@ -99,7 +107,7 @@ namespace Snake
                         break;
                     case Moving_directions.Left:
                         head_clear = new Pixel(SnakeHead);
-                        SnakeHead.x--;
+                        SnakeHead.x-=2;
                         break;
                     case Moving_directions.Down:
                         head_clear = new Pixel(SnakeHead);
@@ -107,15 +115,18 @@ namespace Snake
                         break;
                     case Moving_directions.Right:
                         head_clear = new Pixel(SnakeHead);
-                        SnakeHead.x++;
+                        SnakeHead.x+=2;
                         break;
                 }
                 if (SnakeHead.x == Berry.x && SnakeHead.y == Berry.y)
                 {
                     Score++;
-                    Berry.x = rng.Next(1, ScreenWidth - 2);
-                    Berry.y = rng.Next(1, ScreenHeight - 2);
+                    do
+                    {
+                        Berry = new Pixel(rng.Next(1, ScreenWidth - 2), rng.Next(1, ScreenHeight - 2), ConsoleColor.Red);
+                    } while (Berry.x % 2 != 0.0);
                 }
+                
                 foreach (Pixel segment in SnakeBody)
                 {
                     if (segment.x == SnakeHead.x && segment.y == SnakeHead.y)
@@ -124,7 +135,7 @@ namespace Snake
                         break;
                     }
                 }
-                if (SnakeHead.x == 0 || SnakeHead.x == ScreenWidth - 1 || SnakeHead.y == 0 || SnakeHead.y == ScreenHeight - 1)
+                if (SnakeHead.x <= 1 || SnakeHead.x == ScreenWidth - 2 || SnakeHead.y == 1 || SnakeHead.y == ScreenHeight-2)
                 {
                     GameOver = true;
                 }
@@ -207,7 +218,7 @@ namespace Snake
             SnakeBody.Clear();
             Score = 0;
             GameOver = false;
-            curent_direction = Moving_directions.Right;
+            curent_direction = Moving_directions.None;
             Console.WriteLine("Press enter to retry....");
             Console.ReadLine();
         }

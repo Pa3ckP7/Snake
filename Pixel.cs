@@ -36,16 +36,16 @@ namespace Snake
         
         public static void drawPixel(Pixel pixel) 
         {
-            Console.ForegroundColor = pixel.PixelColor;
+            Console.BackgroundColor = pixel.PixelColor;
             Console.SetCursorPosition(pixel.x, pixel.y);
-            Console.Write("■");
+            Console.Write("  ");
             Console.ResetColor();
         }
         public static void drawPixel(int x, int y, ConsoleColor color) 
         {
-            Console.ForegroundColor = color;
+            Console.BackgroundColor = color;
             Console.SetCursorPosition(x, y);
-            Console.Write("■");
+            Console.Write("  ");
             Console.ResetColor();
         }
     }

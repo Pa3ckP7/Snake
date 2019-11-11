@@ -10,6 +10,7 @@ namespace Snake
     {
         static void Main(string[] args)
         {
+            SnakeGame.Menu();
             while (true) 
             {
                 Console.Clear();

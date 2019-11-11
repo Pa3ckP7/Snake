@@ -27,7 +27,7 @@ namespace Snake
         static Pixel SnakeHead = new Pixel((ScreenWidth) / 2, (ScreenHeight) / 2, ConsoleColor.DarkYellow);
         static Pixel head_clear = new Pixel(SnakeHead);
         static Pixel body_clear = new Pixel();
-        static Pixel Berry = new Pixel(rng.Next(1, ScreenWidth - 2), rng.Next(1, ScreenHeight - 2), ConsoleColor.Red);
+        static Pixel Berry = new Pixel(rng.Next(2, ScreenWidth - 2), rng.Next(1, ScreenHeight - 2), ConsoleColor.Red);
         public enum Moving_directions
         {
             None,//0
@@ -36,9 +36,19 @@ namespace Snake
             Down,//3
             Right//4
         }
+        public static void Menu() 
+        {
+            Console.SetCursorPosition((ScreenWidth / 2), (ScreenHeight / 2)+3);
+            Console.WriteLine("Snake Game");
+            Console.SetCursorPosition((ScreenWidth / 2), (ScreenHeight / 2)+4);
+            Console.WriteLine("By Pa3ckP7");
+           
+            Start();
+        }
         public static void Start()
         {
             stopwatch.Start();
+            Console.Title = "Snake game || by Pa3ckP7";
             Console.CursorVisible = false;
             Console.WindowWidth = ScreenWidth;
             Console.WindowHeight = ScreenHeight;
@@ -46,7 +56,7 @@ namespace Snake
             SnakeHead = new Pixel((ScreenWidth) / 2, (ScreenHeight) / 2, ConsoleColor.DarkYellow);
             do
             {
-                Berry = new Pixel(rng.Next(1, ScreenWidth - 2), rng.Next(1, ScreenHeight - 2), ConsoleColor.Red);
+                Berry = new Pixel(rng.Next(2, ScreenWidth - 2), rng.Next(2, ScreenHeight - 2), ConsoleColor.Red);
             } while (Berry.x%2!=0.0);
             Game();
         }
@@ -123,7 +133,7 @@ namespace Snake
                     Score++;
                     do
                     {
-                        Berry = new Pixel(rng.Next(1, ScreenWidth - 2), rng.Next(1, ScreenHeight - 2), ConsoleColor.Red);
+                        Berry = new Pixel(rng.Next(2, ScreenWidth - 2), rng.Next(2, ScreenHeight - 2), ConsoleColor.Red);
                     } while (Berry.x % 2 != 0.0);
                 }
                 
@@ -210,9 +220,9 @@ namespace Snake
             Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 1);
             Console.WriteLine($"Final score: {Score}");
             Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 2);
-            Console.WriteLine($"Total snake length:{Score+StartingSize+1}");
+            Console.WriteLine($"Total snake length: {Score+StartingSize+1}");
             Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 3);
-            Console.WriteLine($"Time survived:{stopwatch.Elapsed}");
+            Console.WriteLine($"Time survived: {stopwatch.Elapsed}");
             Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 4);
             stopwatch.Reset();
             SnakeBody.Clear();
@@ -220,7 +230,7 @@ namespace Snake
             GameOver = false;
             curent_direction = Moving_directions.None;
             Console.WriteLine("Press enter to retry....");
-            Console.ReadLine();
+            int temp=Console.Read();
         }
     }
 }

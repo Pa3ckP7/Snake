@@ -8,7 +8,7 @@ namespace Snake
 {
     class Program
     {
-        static bool Quit = false;
+        public static bool Quit { get; set; } = false;
         static void Main(string[] args)
         {
             while (Quit == false)

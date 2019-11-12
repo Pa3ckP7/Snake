@@ -112,7 +112,7 @@ namespace Snake
             while (!GameOver)
             {
                 Console.SetCursorPosition(0, 0);
-                Console.Write($"Score: { Convert.ToString(ScoreP1)}");
+                Console.Write(String.Format("{0,0} {1,30}",$"P1 score: { Convert.ToString(ScoreP1)}", $"P2 score: { Convert.ToString(ScoreP2)}"));
                 Pseudoclear();
                 Pixel.drawPixel(SnakeHeadP1);
                 Pixel.drawPixel(SnakeHeadP2);

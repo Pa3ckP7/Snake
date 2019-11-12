@@ -71,10 +71,14 @@ namespace Snake
                 Console.Clear();
                 SnakeGame.Start();
             }
-            else if (cursory == (Console.WindowHeight / 2) - 7) 
+            else if (cursory == (Console.WindowHeight / 2) - 7)
             {
                 Console.Clear();
                 SnakeGame2P.Start();
+            }
+            else if (cursory == (Console.WindowHeight / 2) - 6) 
+            {
+                Program.Quit = true;
             }
 
         }

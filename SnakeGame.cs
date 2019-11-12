@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace Snake
 {
     class SnakeGame
     {
-        static Stopwatch stopwatch = new Stopwatch();
+        
         static DateTime Timer1, Timer2,Wait1,Wait2;
         static Random rng = new Random();
         static List<Pixel> SnakeBody = new List<Pixel>();
         static ConsoleColor SegmentColor = ConsoleColor.Green;
         static ConsoleColor empty = ConsoleColor.Black;
-        static int speed = 80;
         static readonly double timestep = 50;// in miliseconds
         static bool GameOver = false;
         static bool KeyPressed = false;
@@ -36,18 +34,9 @@ namespace Snake
             Down,//3
             Right//4
         }
-        public static void Menu() 
-        {
-            Console.SetCursorPosition((ScreenWidth / 2), (ScreenHeight / 2)+3);
-            Console.WriteLine("Snake Game");
-            Console.SetCursorPosition((ScreenWidth / 2), (ScreenHeight / 2)+4);
-            Console.WriteLine("By Pa3ckP7");
-           
-            Start();
-        }
+        
         public static void Start()
         {
-            stopwatch.Start();
             Console.Title = "Snake game || by Pa3ckP7";
             Console.CursorVisible = false;
             Console.WindowWidth = ScreenWidth;
@@ -202,9 +191,8 @@ namespace Snake
             }
            
         }
-        static void Game_Over() 
+        public static void Game_Over() 
         {
-            stopwatch.Stop();
             Wait1 = DateTime.Now;
             while (true) 
             {
@@ -215,22 +203,20 @@ namespace Snake
                 }
             }
             Console.Clear();
-            Console.SetCursorPosition((ScreenWidth) / 2, (ScreenHeight) / 2);
+            Console.SetCursorPosition((ScreenWidth) / 2-8, (ScreenHeight) / 2-10);
             Console.WriteLine("GAME OVER");
-            Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 1);
+            Console.SetCursorPosition((ScreenWidth) / 2-8, ((ScreenHeight) / 2) -9);
             Console.WriteLine($"Final score: {Score}");
-            Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 2);
+            Console.SetCursorPosition((ScreenWidth) / 2-8, ((ScreenHeight) / 2) -8);
             Console.WriteLine($"Total snake length: {Score+StartingSize+1}");
-            Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 3);
-            Console.WriteLine($"Time survived: {stopwatch.Elapsed}");
-            Console.SetCursorPosition((ScreenWidth) / 2, ((ScreenHeight) / 2) + 4);
-            stopwatch.Reset();
+            
+            
             SnakeBody.Clear();
             Score = 0;
             GameOver = false;
             curent_direction = Moving_directions.None;
-            Console.WriteLine("Press enter to retry....");
-            int temp=Console.Read();
+            SoloGO.SoloGameOver();
+
         }
     }
 }

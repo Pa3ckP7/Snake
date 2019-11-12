@@ -8,13 +8,12 @@ namespace Snake
 {
     class Program
     {
+        static bool Quit = false;
         static void Main(string[] args)
         {
-            SnakeGame.Menu();
-            while (true) 
+            while (Quit == false)
             {
-                Console.Clear();
-                SnakeGame.Start();
+                Main_Menu.Menu();
             }
         }
     }

@@ -43,10 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Main_Menu.cs" />
+    <Compile Include="MultGO.cs" />
     <Compile Include="Pixel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SnakeGame.cs" />
+    <Compile Include="SnakeGame2P.cs" />
+    <Compile Include="SoloGO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
